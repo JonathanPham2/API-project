@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const { restoreUser } = require("../../utils/auth");
+const sessionRouter = require("./session")
+const usersRouter = require("./users");
+
 
 
 //Connect restoreUser middleware to the API router
@@ -7,6 +10,9 @@ const { restoreUser } = require("../../utils/auth");
     // if the current user session is not vcalid, set req.user to null
 router.use(restoreUser)
 
+router.use("/session", sessionRouter)
+
+router.use("/users", usersRouter)
 
 
 module.exports = router
