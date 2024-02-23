@@ -1,8 +1,12 @@
 const router = require("express").Router();
+const { restoreUser } = require("../../utils/auth");
 
 
-router.post("/test", (req, res) => {
-    res.json({ requestBody: req.body})
-})
+//Connect restoreUser middleware to the API router
+    //If curent user session is valid, set req.user to the use in the database
+    // if the current user session is not vcalid, set req.user to null
+router.use(restoreUser)
+
+
 
 module.exports = router
