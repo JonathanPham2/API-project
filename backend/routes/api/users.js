@@ -33,6 +33,24 @@ router.post("/", async(req, res, next) => {
     })
 
 
+});
+
+router.get("/",(req, res) => {
+
+    // destructing user from request
+    const { user } = req;
+    // assuming restoreUser middleware alreay check..
+    if(user) {
+        const safeUser = {
+            id: user.id,
+            username: user.username,
+            email: user.email
+        }
+        return res.json({
+            user:safeUser
+        })
+    }
+    else return res.json({user: null})
 })
 
 
