@@ -25,6 +25,15 @@ module.exports = {
         allowNull:false,
         unique: true
       },
+      firstName: {
+        type: Sequelize.STRING(60),
+        allowNull:false
+      },
+      lastName: {
+        type: Sequelize.STRING(60),
+        allowNull: false
+
+      },
       hashedPassword: {
         type: Sequelize.STRING,
         allowNull: false
