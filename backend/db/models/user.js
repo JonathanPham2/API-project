@@ -40,6 +40,34 @@ module.exports = (sequelize, DataTypes) => {
       }
     
     },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        isCapitalize(value) {
+          if(value[0] !== value[0].toUpperCase()){
+            value = value[0].toUpperCase()
+          }
+        },
+        len: [4,60]
+      }
+
+
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate: {
+        isCapitalize(value) {
+          if(value[0] !== value[0].toUpperCase()){
+            value = value[0].toUpperCase()
+          }
+        },
+        len: [4, 60]
+
+      }
+
+    },
     hashedPassword:{type: DataTypes.STRING.BINARY,
       allowNull: false,
       validate:{
