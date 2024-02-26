@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
             value = value[0].toUpperCase()
           }
         },
-        len: [4,60]
+        len: [2,60]
       }
 
 
@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
             value = value[0].toUpperCase()
           }
         },
-        len: [4, 60]
+        len: [2, 60]
 
       }
 
