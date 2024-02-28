@@ -21,11 +21,11 @@ router.get("/",async(req,res, next) => {
             attributes:["preview", "url"]
         }
 ],
-        
+
         attributes: {
             include: [[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]]
     },
-    group:("Spot.id")
+    group:("Spot.id","SpotImages.id")
 
 
     })
@@ -65,7 +65,7 @@ router.get("/current", requireAuth,async (req, res, next ) => {
 attributes: {
     include: [[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]]
 },
-group:("Spot.id")
+group:("Spot.id", "SpotImages.id")
 
 
 })
