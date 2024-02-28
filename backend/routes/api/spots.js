@@ -29,7 +29,7 @@ const spotsObjHandler = async (req, res, next) => {
             include: [
                 // using sqeuelize literal to count and calculate avg
                 [sequelize.literal(`(SELECT COUNT(*) FROM Reviews 
-                WHERE spotid = spot.id)`), "numReviews"],
+                WHERE spotId = Spot.id)`), "numReviews"],
 
                 [sequelize.literal(`(SELECT AVG(stars) FROM Reviews WHERE spotId = Spot.id)`), "avgRating"]
                 
