@@ -62,12 +62,13 @@ app.use((req, res, next) => {
 
 // Process Sequelize errors
 
+
 app.use((err, _req, _res, next) => {
     // check if the error is a Sequelize error:
     if(err instanceof ValidationError) {
         let errors = {};
-
-        for(let error of errors) {
+        
+        for(let error of err.errors) {
             errors[error.path] = error.message;
         }
         err.title = "Validation error";
@@ -75,6 +76,32 @@ app.use((err, _req, _res, next) => {
     }
     next(err)
 });
+// ERROR HANDLING FOR UNIQUE EMAIL
+app.use((err, req, res, next) =>  {
+    if(err.name === "SequelizeUniqueConstraintError"){
+        if(err.errors.email){
+           return res.status(500).json({
+            message: "User already exists",
+            errors: {
+            email: "User with that email already exists"
+            }
+           })
+        }
+        if(err.errors.username) {
+            return res.status(500).json({
+                message: "User already exists",
+                errors: {
+                email: "User with that username already exists"
+                }
+               })
+        }
+    
+    }
+    next(err)
+});
+
+
+
 
 // Error formatter 
 app.use((err, _req, res, _next) => {

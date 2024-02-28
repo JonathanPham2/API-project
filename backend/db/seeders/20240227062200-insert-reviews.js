@@ -20,9 +20,9 @@ module.exports = {
       {spotId: 5, userId: 3, review: "Review 8 text.", stars: 3},
       {spotId: 5, userId: 4, review: "Review 9 text.", stars: 2},
       {spotId: 1, userId: 4, review: "Review 10 text.", stars: 3},
-      {spotId: 5, userId: 2, review: "Review 8 text.", stars: 5},
-      {spotId: 5, userId: 1, review: "Review 9 text.", stars: 5},
-      {spotId: 1, userId: 5, review: "Review 10 text.", stars: 5},
+      {spotId: 5, userId: 2, review: "Review 11 text.", stars: 5},
+      {spotId: 5, userId: 1, review: "Review 12 text.", stars: 5},
+      {spotId: 1, userId: 5, review: "Review 13 text.", stars: 5},
     ], {validate: true})
   },
 

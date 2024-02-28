@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Spot, {
+        as: "Owner",
         foreignKey: "ownerId",
         onDelete:"CASCADE",
         hooks: true
