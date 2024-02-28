@@ -23,30 +23,16 @@ router.get("/",async(req,res, next) => {
 ],
         
         attributes: {
-            include: [
-                // using sqeuelize literal to count and calculate avg
-                [sequelize.literal(`(SELECT COUNT(*) FROM Reviews 
-                WHERE spotid = spot.id)`), "numReviews"],
-
-                [sequelize.literal(`(SELECT AVG(stars) FROM Reviews WHERE spotId = Spot.id)`), "avgRating"]
-                
-                
-            ]
-
-    }})
-    // spots with all the details 
-    req.spots = spots
+            include: [[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]]
+    },
+    group:("Spot.id")
 
 
-    const spotsPreImg = spots.map(  spot => {
-        
+    })
+    const spotsWithPreImg = spots.map(spot => {
+        const spotObj = spot.toJSON();
       
-        // turn into POJO
-      let spotObj = spot.toJSON();
-      
-      
-
-      const previewImage = spotObj.SpotImages.find(image => image.preview === true)?.url;
+      const previewImage = spotObj.SpotImages.find(image => image.preview ===true)?.url;
 
         spotObj.previewImage = previewImage
         delete spotObj.SpotImages
