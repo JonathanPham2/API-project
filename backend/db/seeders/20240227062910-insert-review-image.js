@@ -10,46 +10,27 @@ module.exports = {
   async up (queryInterface, Sequelize) {
    await ReviewImage.bulkCreate([
     {
-      reviewId: 7,
+      reviewId: 1,
       url: "https://example.com/image2.jpg"
     },
     {
-      reviewId: 4,
+      reviewId: 2,
       url: "https://example.com/image45.jpg"
     },
   
     {
-      reviewId: 4,
+      reviewId: 3,
       url: "https://example.com/image34.jpg"
     },
     {
-      reviewId: 2,
+      reviewId: 4,
       url: "https://example.com/image20.jpg"
     },
     {
-      reviewId: 2,
+      reviewId: 5,
       url: "https://example.com/image96.jpg"
     },
-    {
-      reviewId: 7,
-      url: "https://example.com/image83.jpg"
-    },
-    {
-      reviewId: 9,
-      url: "https://example.com/image89.jpg"
-    },
-    {
-      reviewId: 8,
-      url: "https://example.com/image49.jpg"
-    },
-    {
-      reviewId: 5,
-      url: "https://example.com/image95.jpg"
-    },
-    {
-      reviewId: 5,
-      url: "https://example.com/image98.jpg"
-    }
+    
   ], {validate: true})
   },
 

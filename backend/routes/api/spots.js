@@ -89,6 +89,9 @@ return res.json({Spots: userSpots})
 
 
 });
+const spotReviewRouter = require("./spotreview")
+
+router.use("/:spotId/reviews", spotReviewRouter)
 
 router.get("/:spotId", async(req, res, next) => {
     const id =parseInt(req.params.spotId)
