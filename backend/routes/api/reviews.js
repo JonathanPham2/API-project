@@ -79,7 +79,7 @@ router.post("/:reviewId/images", requireAuth,async(req, res ,next ) => {
             url
 
         })
-        return res.json(review)
+        return res.json(img)
     }
     else {
         return res.status(400).json({message: "Review couldn't be found"})
