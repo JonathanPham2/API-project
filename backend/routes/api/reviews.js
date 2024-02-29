@@ -68,7 +68,7 @@ router.get("/current", requireAuth, async(req, res, next) => {
 router.post("/:reviewId/images", requireAuth,async(req, res ,next ) => {
     const { url } = req.body
     const review =   await Review.findByPk(req.params.reviewId);
-    if(review.id === req.user.id){
+    if(review &&review.id === req.user.id){
     
         const reviewImg = await review.getReviewImages()
         if(reviewImg.length > 10) {
