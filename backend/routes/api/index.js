@@ -4,6 +4,7 @@ const sessionRouter = require("./session")
 const usersRouter = require("./users");
 const spotsRouter = require("./spots")
 const reviewRouter = require("./reviews")
+const bookingsRouter = require("./booking")
 
 
 
@@ -19,6 +20,9 @@ router.use("/users", usersRouter)
 router.use("/spots",spotsRouter )
 
 router.use("/reviews",reviewRouter)
+
+
+router.use("/bookings", bookingsRouter)
 
 
 
