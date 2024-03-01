@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     lng: {
-      type:DataTypes.FLOAT,
+      type:DataTypes.FLOAT(10,7),
       allowNull: false,
       validate: {
         min: -180,
@@ -96,7 +96,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     price: {
-      type:DataTypes.FLOAT,
+      type:DataTypes.NUMERIC,
       allowNull:false,
       validate: {
         min: 0

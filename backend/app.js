@@ -107,12 +107,22 @@ app.use((err, req, res, next) =>  {
 app.use((err, _req, res, _next) => {
     res.status(err.status || 500);
     console.error(err);
+    if(isProduction){
+        res.json({
+            // tittle: err.title || "Server Error",
+            message: err.message,
+            errors: err.errors,
+            // stack: isProduction ? null : err.stack
+        })
+    }
+    else{
     res.json({
         // tittle: err.title || "Server Error",
         message: err.message,
         errors: err.errors,
         stack: isProduction ? null : err.stack
     })
+}
 })
 
 module.exports = app
