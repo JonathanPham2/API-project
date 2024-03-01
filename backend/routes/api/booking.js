@@ -74,7 +74,7 @@ const isPastBooking =  async (req, res, next) => {
     const{startDate} = req.body
     const now =  new Date().getTime()
     if(getDateOnly(startDate) <= now){
-        return res.json({message: "Past bookings can't be modified"})
+        return res.status(403).json({message: "Past bookings can't be modified"})
     }
     next()
 
