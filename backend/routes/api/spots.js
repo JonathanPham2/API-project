@@ -89,6 +89,12 @@ return res.json({Spots: userSpots})
 
 
 });
+//handle booking route with spotId
+const spotBookingRouter = require("./spotsbooking")
+
+router.use("/:spotId/bookings",spotBookingRouter)
+
+// handle review  route with specify spotId
 const spotReviewRouter = require("./spotreview")
 
 router.use("/:spotId/reviews", spotReviewRouter)

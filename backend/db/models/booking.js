@@ -32,16 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     startDate: {type:DataTypes.DATE,
       allowNull:false,
-      validate: {
-        isDate:true
-      }
+      
     },
     endDate: {
       type:DataTypes.DATE,
       allowNull:false,
-      validate: {
-        isDate:true
-      }
+      
     }
   }, {
     sequelize,
