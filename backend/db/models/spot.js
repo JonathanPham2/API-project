@@ -97,6 +97,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type:DataTypes.DECIMAL(10,2),
+      get() {
+        const value = this.getDataValue("price")
+        return value === null ? null: parseFloat(value)
+      },
       allowNull:false,
       validate: {
         min: 0
