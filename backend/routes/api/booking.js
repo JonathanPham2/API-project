@@ -174,13 +174,17 @@ router.delete("/:bookingId",requireAuth, async(req, res, next) => {
 
     if( req.user.id === booking.userId ||req.user.id === spot.ownerId){
     
-        if(getDateOnly(booking.startDate) <=now && getDateOnly(booking.endDate)>  now) {
-            res.status(403).json({message: "Bookings that have been started can't be deleted"})
-        }
-        await booking.destroy()
-        return res.json({
-            message:"Successfully deleted"
-        })
+            if(getDateOnly(booking.startDate) <=now && getDateOnly(booking.endDate)>  now) {
+                res.status(403).json({message: "Bookings that have been started can't be deleted"})
+            }
+            await booking.destroy()
+            return res.json({
+                message:"Successfully deleted"
+            })
+    }
+    else{
+        res.status(400).json({message: "Booking couldn't be found"})
+
     }
     }
     else {
