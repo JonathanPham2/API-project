@@ -173,7 +173,7 @@ router.delete("/:bookingId",requireAuth, async(req, res, next) => {
   
 
     if( req.user.id === booking.userId ||req.user.id === spot.ownerId){
-    
+            const now = new Date().getTime()
             if(getDateOnly(booking.startDate) <=now && getDateOnly(booking.endDate)>  now) {
                 res.status(403).json({message: "Bookings that have been started can't be deleted"})
             }

@@ -4,19 +4,81 @@ const { Spot, Review, SpotImage, User} = require("../../db/models")
 const sequelize =  require("sequelize")
 const { requireAuth } = require("../../utils/auth");
 const { handleValidationErrors } = require("../../utils/validation");
-const { check } = require("express-validator");
-const spot = require("../../db/models/spot");
+const { check, query} = require("express-validator");
+const { Op} = require("sequelize")
 
 
 
+queryValidation = [
+    query("page")
+    .optional()
+    .isInt({min: 1, max: 10})
+    .withMessage("Page must be greate than or equal to 1"),
+    query("size")
+    .optional()
+    .isInt({ min: 1, max: 20})
+    .withMessage("Size must be greate than or equal to 1"),
+    query('minLat')
+    .optional()
+    .isFloat({ min: -90, max: 90 })
+    .withMessage('Minimum latitude is invalid'),
+    query('maxLat')
+    .optional()
+    .isFloat({ min: -90, max: 90 })
+    .withMessage('Maximum latitude is invalid'),
+    query('minLng')
+    .optional()
+    .isFloat({ min: -180, max: 180 })
+    .withMessage('Minimum longitude is invalid'),
+    query('maxLng')
+    .optional()
+    .isFloat({ min: -180, max: 180 })
+    .withMessage('Maximum longitude is invalid'),
+    query('minPrice')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage('Minimum price must be greater than or equal to 0'),
+    query('maxPrice')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage('Maximum price must be greater than or equal to 0'),
+    handleValidationErrors
 
 
+]
 
-router.get("/",async(req,res, next) => {
+
+router.get("/",queryValidation,async(req,res, next) => {
+
+    let where = {}
+    let pagination ={}
+    
+    let page = parseInt(req.query.page) || 1
+    let size = parseInt(req.query.size) || 20    
+
+    pagination.limit = parseInt(size)
+    pagination.offset = parseInt(size) * (parseInt(page) - 1)
+    console.log(pagination)
+     
+    const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    if(minLat && maxLat) {
+        where.lat = {[Op.between]: [minLat, maxLat]}
+    }
+    if(minLng && maxLng) {
+        where.lng = {[Op.between]: [minLng, maxLng]}
+    }
+    if(minPrice && maxPrice) {
+        where.price = {[Op.between]: [minPrice, maxPrice]}
+    }
+
+
+    
     const spots = await Spot.findAll({
+        where,
+        ...pagination,
         include: [{
         model: Review,
-        attributes: []
+        attributes: ["stars"]
         },
         {
             model: SpotImage,
@@ -24,32 +86,30 @@ router.get("/",async(req,res, next) => {
         }
 ],
 
-        attributes: {
-            include: [[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"]]
-    },
-    group:["Spot.id","SpotImages.id"]
-
 
     })
     const spotsWithPreImg = spots.map(spot => {
+        let avgRating = "Rate me"
         const spotObj = spot.toJSON();
+        if(spotObj.Reviews && spotObj.Reviews.length > 0){
+            const totalStars = spotObj.Reviews.reduce((acc, review)=> acc + review.stars, 0 );
+            avgRating = parseFloat((totalStars / spotObj.Reviews.length).toFixed(2))
+
+        }
+        
+        spotObj.avgRating = avgRating
+        delete spotObj.Reviews
+        
       
       const previewImage = spotObj.SpotImages.find(image => image.preview ===true)?.url;
 
         spotObj.previewImage = previewImage
-        spotObj.avgRating = spotObj.avgRating === null ? "Rate me" : parseFloat(spotObj.avgRating);
-        // console.log(result);
-        // if(spotObj.avgRating === null ){
-        //     spotObj.avgRating = "Rate me"
-        // }
-        // else{
-        //     spotObj.avgRating = parseFloat(spotObj.avgRating)
-        // }
+        
 
         delete spotObj.SpotImages
         return spotObj
     })
-    res.json({Spots: spotsWithPreImg})
+    res.json({Spots: spotsWithPreImg,page, size })
 
    
 
