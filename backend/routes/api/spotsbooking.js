@@ -2,7 +2,7 @@ const router = require("express").Router({mergeParams:true})
 const { Spot, User, Booking, SpotImage  } = require("../../db/models") ;
 const { requireAuth } = require("../../utils/auth");
 
-const { bookingsValidation,dateFormated, getDateOnly } = require("../../utils/bookingValidation");
+const { bookingsValidation,dateFormated, getDateOnly } = require("../../utils/bookingvalidation");
 
 
 

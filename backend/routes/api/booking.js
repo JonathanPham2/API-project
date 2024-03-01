@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const { Spot, User, Booking, SpotImage  } = require("../../db/models") ;
 const { requireAuth } = require("../../utils/auth");
-const { dateFormated, bookingsValidation, getDateOnly } = require("../../utils/bookingValidation");
+const { dateFormated, bookingsValidation, getDateOnly } = require("../../utils/bookingvalidation");
 const {Op} = require("sequelize")
 
 
