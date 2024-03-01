@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     lat: {
-      type:DataTypes.DECIMAL(9,7),
+      type:DataTypes.NUMERIC(9,7),
       allowNull:false,
       validate: {
         min: -90,
@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     lng: {
-      type:DataTypes.DECIMAL(10,7),
+      type:DataTypes.NUMERIC(10,7),
       allowNull: false,
       validate: {
         min: -180,
@@ -96,11 +96,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     price: {
-      type:DataTypes.DECIMAL(10,2),
-      get() {
-        const value = this.getDataValue("price")
-        return value === null ? null: parseFloat(value)
-      },
+      type:DataTypes.NUMERIC(10,2),
       allowNull:false,
       validate: {
         min: 0

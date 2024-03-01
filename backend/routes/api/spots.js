@@ -37,6 +37,15 @@ router.get("/",async(req,res, next) => {
       const previewImage = spotObj.SpotImages.find(image => image.preview ===true)?.url;
 
         spotObj.previewImage = previewImage
+        spotObj.avgRating = spotObj.avgRating === null ? "Rate me" : parseFloat(spotObj.avgRating);
+        // console.log(result);
+        // if(spotObj.avgRating === null ){
+        //     spotObj.avgRating = "Rate me"
+        // }
+        // else{
+        //     spotObj.avgRating = parseFloat(spotObj.avgRating)
+        // }
+
         delete spotObj.SpotImages
         return spotObj
     })
@@ -77,6 +86,7 @@ const userSpots = spots.map(spot => {
     const previewImage = spotObj.SpotImages.find(image => image.preview ===true)?.url;
 
     spotObj.previewImage = previewImage
+    spotObj.avgRating = spotObj.avgRating === null ? "Rate me" : parseFloat(spotObj.avgRating);
     delete spotObj.SpotImages
     return spotObj
 })
@@ -129,7 +139,13 @@ router.get("/:spotId", async(req, res, next) => {
         
 
         })
-        res.json(spotWithId)
+        const spotWithIdObj = spotWithId.toJSON();
+           spotWithIdObj.avgRating = spotWithIdObj.avgRating === null ? "Rate me":parseFloat(spotWithIdObj.avgRating);
+
+
+           spotWithIdObj.numReviews = spotWithIdObj.numReviews = parseFloat(spotWithIdObj.numReviews)
+        
+        res.json(spotWithIdObj)
 
     }
     else{
