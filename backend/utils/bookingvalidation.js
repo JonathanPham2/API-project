@@ -1,5 +1,4 @@
 
-const router = require("express").Router({mergeParams:true})
 const { format } = require("date-fns");
 const { check, validationResult } = require("express-validator");
 const { handleValidationErrors } = require("./validation");
