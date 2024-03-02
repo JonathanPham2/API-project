@@ -84,7 +84,8 @@ router.post("/", requireAuth, bookingsValidation,async(req, res, next )=> {
     
     const spot = await Spot.findByPk(req.params.spotId)
 
-    if(spot && spot.ownerId !== req.user.id){
+    if(spot){
+        if(spot.ownerId !== req.user.id) {
         const { startDate, endDate} =  req.body;
         const spotBookings = await spot.getBookings({
             attributes:["startDate", "endDate"]
@@ -126,25 +127,30 @@ router.post("/", requireAuth, bookingsValidation,async(req, res, next )=> {
             
 
 
-        const newBooking = await spot.createBooking({
-            userId: req.user.id,
-            startDate,
-            endDate
-        })
-        const bookingObj = newBooking.toJSON();
+                const newBooking = await spot.createBooking({
+                    userId: req.user.id,
+                    startDate,
+                    endDate
+                })
+                const bookingObj = newBooking.toJSON();
 
-        return res.json({
-            id: bookingObj.id,
-            spotId: bookingObj.spotId,
-            userId: bookingObj.userId,
-            startDate,
-            endDate,
-            createdAt: bookingObj.createdAt,
-            updatedAt: bookingObj.updatedAt
+             return res.json({
+                id: bookingObj.id,
+                spotId: bookingObj.spotId,
+                userId: bookingObj.userId,
+                startDate,
+                endDate,
+                createdAt: bookingObj.createdAt,
+                updatedAt: bookingObj.updatedAt
 
-        })
+            })
+        }
+        else {
+            res.status(403).json({message:"Forbidden"})
+        }
 
     }
+
     else {
         return res.status(404).json({message:"Spot couldn't be found"})
     }

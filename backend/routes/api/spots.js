@@ -209,7 +209,7 @@ router.get("/:spotId", async(req, res, next) => {
 
     }
     else{
-        return res.status(400).json({
+        return res.status(404).json({
             message: "Spot couldn't be found"
         })
     }
@@ -280,13 +280,16 @@ router.post("/",requireAuth,validateSpot, async (req, res, next )=> {
 })
 const validateOwnerSpot = async (req,res, next) => {
     const spot = await Spot.findByPk(req.params.spotId)
-    if(spot && req.user.id === spot.ownerId){
+    if(spot){
+        if(req.user.id === spot.ownerId){
         req.spot = spot
         return next()
+        }
+        else  return res.status(403).json({message:"Forbidden"})
     }
     else {
-        return res.status(403).json({
-            message:"Forbidden"
+        return res.status(404).json({
+            message:"Spot couldn't be found"
         })
     }
 }

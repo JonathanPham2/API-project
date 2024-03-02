@@ -86,26 +86,29 @@ router.put("/:bookingId", requireAuth,isPastBooking,bookingsValidation, async(re
     const bookingToUpdate =  await Booking.findByPk(req.params.bookingId);
 
     // if booking exist and belong to the current user then they can modify it
-    if(bookingToUpdate && bookingToUpdate.userId === req.user.id){
-        const {startDate, endDate } = req.body
+    if(bookingToUpdate ){
+
+        if( bookingToUpdate.userId === req.user.id) {
+
+                const {startDate, endDate } = req.body
 
 
-        const spotBookings = await Booking.findAll({
-            where: {
-                spotId: bookingToUpdate.spotId,
-                id: {
-                    [Op.notIn]: [bookingToUpdate.id]
+                const spotBookings = await Booking.findAll({
+                    where: {
+                        spotId: bookingToUpdate.spotId,
+                        id: {
+                            [Op.notIn]: [bookingToUpdate.id]
 
-                }
-                
-            }
-        })
+                        }
+                        
+                    }
+                })
 
-        const bookingDatesFormated = spotBookings.map(booking => {
-            const bookingObj = booking.toJSON();
-            bookingObj.startDate = getDateOnly(bookingObj.startDate)
-            bookingObj.endDate = getDateOnly(bookingObj.endDate)
-            return bookingObj
+                const bookingDatesFormated = spotBookings.map(booking => {
+                    const bookingObj = booking.toJSON();
+                    bookingObj.startDate = getDateOnly(bookingObj.startDate)
+                    bookingObj.endDate = getDateOnly(bookingObj.endDate)
+                    return bookingObj
 
 
         })
@@ -135,29 +138,25 @@ router.put("/:bookingId", requireAuth,isPastBooking,bookingsValidation, async(re
                 return next(err)
                 
             }
-            
+                
+            await bookingToUpdate.update({
+                startDate,
+                endDate
 
+            })
+            const bookingObj = bookingToUpdate.toJSON()
+            return res.json({
+                id: bookingObj.id,
+                spotId: bookingObj.spotId,
+                userId: bookingObj.userId,
+                startDate,
+                endDate,
+                createdAt: bookingObj.createdAt,
+                updatedAt: bookingObj.updatedAt
 
-        
-
-
-
-        await bookingToUpdate.update({
-            startDate,
-            endDate
-
-        })
-        const bookingObj = bookingToUpdate.toJSON()
-        return res.json({
-            id: bookingObj.id,
-            spotId: bookingObj.spotId,
-            userId: bookingObj.userId,
-            startDate,
-            endDate,
-            createdAt: bookingObj.createdAt,
-            updatedAt: bookingObj.updatedAt
-
-        })
+            })
+        }
+        else res.status(403).json({message:"Forbidden"})
 
     }
     else {
@@ -172,23 +171,23 @@ router.delete("/:bookingId",requireAuth, async(req, res, next) => {
     spot =  await Spot.findByPk(booking.spotId)
   
 
-    if( req.user.id === booking.userId ||req.user.id === spot.ownerId){
-            const now = new Date().getTime()
-            if(getDateOnly(booking.startDate) <=now && getDateOnly(booking.endDate)>  now) {
-                res.status(403).json({message: "Bookings that have been started can't be deleted"})
-            }
-            await booking.destroy()
-            return res.json({
-                message:"Successfully deleted"
-            })
-    }
+            if( req.user.id === booking.userId ||req.user.id === spot.ownerId){
+                const now = new Date().getTime()
+                if(getDateOnly(booking.startDate) <=now && getDateOnly(booking.endDate)>  now) {
+                    res.status(403).json({message: "Bookings that have been started can't be deleted"})
+                }
+                await booking.destroy()
+                return res.json({
+                    message:"Successfully deleted"
+                })
+             }
     else{
-        res.status(400).json({message: "Booking couldn't be found"})
+        res.status(403).json({message: "Forbidden"})
 
     }
     }
     else {
-        res.status(400).json({message:"Booking couldn't be found"})
+        res.status(404).json({message:"Booking couldn't be found"})
     }
 
 

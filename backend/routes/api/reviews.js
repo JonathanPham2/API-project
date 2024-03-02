@@ -69,23 +69,28 @@ router.post("/:reviewId/images", requireAuth,async(req, res ,next ) => {
     const { url } = req.body
     const review =   await Review.findByPk(req.params.reviewId);
     if(review &&review.userId === req.user.id){
-    
-        const reviewImg = await ReviewImage.findAll({
-            where:{
-                reviewId: review.id
-            }
-        })
-        if(reviewImg.length >=10 ) {
-            return res.status(403).json({message: "Maxium number of images for this resource was reached"})
-        }
-        console.log(reviewImg.length)
-    
-        const img =  await review.createReviewImage({
-            url
+            if(review.userId === req.user.Id){
+                const reviewImg = await ReviewImage.findAll({
+                    where:{
+                        reviewId: review.id
+                    }
+                })
+                    if(reviewImg.length >=10 ) {
+                        return res.status(403).json({message: "Maxium number of images for this resource was reached"})
+                     }   
+            
+                    const img =  await review.createReviewImage({
+                                    url
 
-        })
-        return res.json(img)
+                                 })
+                    return res.json(img)
+         }
+         else{
+            res.status(403).json("Forbidden")
+         }
     }
+   
+   
     else {
         return res.status(400).json({message: "Review couldn't be found"})
         
@@ -104,15 +109,19 @@ const validateReview = [
 router.put("/:reviewId",requireAuth,validateReview, async (req, res, next) => {
     const userId = req.user.id;
     const reviewToUpdate = await Review.findByPk(req.params.reviewId);
-    if(reviewToUpdate && reviewToUpdate.userId === userId){
+    if(reviewToUpdate){
+        if(reviewToUpdate.userId === userId){
+            const { review, stars } = req.body;
+            reviewToUpdate.update({
+                review,
+                stars
 
-        const { review, stars } = req.body;
-        reviewToUpdate.update({
-            review,
-            stars
-
-        })
-        return res.json(reviewToUpdate)
+            })
+            return res.json(reviewToUpdate)
+         }
+         else{ 
+            res.status(403).json({message:"Forbidden"})
+         }
     }
     else {
         return res.status(404).json({message: "Review couldn't found"})
@@ -123,9 +132,13 @@ router.put("/:reviewId",requireAuth,validateReview, async (req, res, next) => {
 router.delete("/:reviewId", requireAuth, async (req, res, next)=> {
     const userId = req.user.id;
     const reviewToDelete = await Review.findByPk(req.params.reviewId);
-    if(reviewToDelete && reviewToDelete.userId === userId) {
-         await reviewToDelete.destroy();
-        return res.json({message: "Successfully deleted"})
+    if(reviewToDelete) {
+
+        if(reviewToDelete.userId === userId){
+            await reviewToDelete.destroy();
+             return res.json({message: "Successfully deleted"})
+        }
+        else res.status(403).json({message:"Forbidden"})
     }
     else {
         return res.status(404).json({message: "Review couldn't be found"})
