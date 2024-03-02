@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     lng: {
-      type:DataTypes.FLOAT(10,7),
+      type:DataTypes.FLOAT,
       allowNull: false,
       validate: {
         min: -180,

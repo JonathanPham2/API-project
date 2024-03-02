@@ -285,8 +285,8 @@ const validateOwnerSpot = async (req,res, next) => {
         return next()
     }
     else {
-        return res.status(400).json({
-            message:"Spot couldn't be found"
+        return res.status(403).json({
+            message:"Forbidden"
         })
     }
 }

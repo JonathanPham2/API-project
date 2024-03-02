@@ -13,7 +13,7 @@ router.get("/", requireAuth, async (req, res, next )=>{
     // and return the booking information for non owner
     if( spot && req.user.id !== spot.ownerId){
     const bookings = await spot.getBookings({
-        attributes: ["spotId", "startDate", "endDate"]
+        attributes: ["userId","spotId", "startDate", "endDate"]
     })
     const bookingFormatDate = bookings.map(booking => {
         const bookingObj = booking.toJSON()
