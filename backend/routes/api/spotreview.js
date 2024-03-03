@@ -61,7 +61,8 @@ router.post("/",requireAuth,validateReview, async (req,res, next) => {
     const spotReviewObj = spotReview.toJSON();
     res.json({
         id:spotReviewObj.id,
-        userId: spotReview.userId,
+        userId: spotReviewObj.userId,
+        spotId:spotReviewObj.spotId,
         review: spotReviewObj.review,
         stars: spotReviewObj.stars,
         createdAt: spotReviewObj.createdAt,

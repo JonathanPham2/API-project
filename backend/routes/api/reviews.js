@@ -114,7 +114,17 @@ router.put("/:reviewId",requireAuth,validateReview, async (req, res, next) => {
                 stars
 
             })
-            return res.json(reviewToUpdate)
+            const reviewObj = reviewToUpdate.toJSON(); 
+            return res.json({
+                id: reviewObj.id,
+                userId: reviewObj.userId,
+                spotId: reviewObj.spotId,
+                review:reviewObj.review,
+                stars:reviewObj.stars,
+                createdAt:reviewObj.createdAt,
+                updatedAt:reviewObj.updatedAt
+                
+            })
          }
          else{ 
             res.status(403).json({message:"Forbidden"})
