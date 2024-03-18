@@ -1,0 +1,30 @@
+.tooltip {
+    position: relative;
+    /* display: inline-block; */
+    /* z-index: 2; */
+  }
+  
+  .tooltip .spot-name-tooltip {
+    /* visibility: hidden; */
+    width: 100px;
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 3;
+    top: 25%;
+    left: 50%;
+    margin-top: 5px; 
+    margin-left: -60px; 
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .spot-name-tooltip { 
+    visibility: visible;
+    opacity: 1;
+    cursor: pointer;
+  } 

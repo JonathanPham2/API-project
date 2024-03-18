@@ -1,5 +1,6 @@
 
 import './Spots.css'
+import Tooltip from '../Tooltip'
 
 
 
@@ -7,6 +8,7 @@ const SpotList = ({spots}) => {
     return (
         <div className="spots-container">
         {spots.map((spot)=> (
+        <Tooltip key = {spot.id} spot = {spot}>
          <div key ={spot.id} className="spot-card" >
             <img className='spot-image' src={spot.previewImage} alt={spot.name} />
             <div className="spot-details">
@@ -15,6 +17,7 @@ const SpotList = ({spots}) => {
             </div>
             <p><span style={{fontWeight:"bold"}}>${spot.price}</span>night</p>
          </div>
+         </Tooltip>
             
             
 

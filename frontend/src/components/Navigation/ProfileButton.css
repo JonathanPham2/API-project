@@ -1,0 +1,73 @@
+.profile-button {
+
+
+    /* list-style-type:none; */
+    /* display: flex; */
+    /* flex-direction: ; */
+    /* border: none; */
+    padding-right: 15px;
+
+
+}
+
+
+.profile-button > button {
+    width: 80px;
+    border-radius: 38px;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+    border: 1px solid grey;
+    /* border-color: white; */
+    /* width: fit-content; */
+
+
+}
+.profile-button > button > i {
+    font-size: 24px;
+}
+.profile-button > button:hover {
+    cursor: pointer;
+    /* background-color: lightgrey; */
+    box-shadow: 2px 2px 2px 2px rgba(236, 235, 235, 0.03);
+    border-color: #CCCCCC;
+
+    ;
+  
+}
+
+
+.modal-list {
+    display: none;
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    background-color: #f6f4f4;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(170, 169, 169, 0.828);
+    
+    
+    
+
+    
+    
+}
+.modal-list > li {
+    list-style-type: none;
+    text-align: start;
+    padding: 0px;
+    margin-left: 8px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: fit-content;
+
+    
+}
+.modal-list > li:hover {
+    cursor: pointer;
+}
+
