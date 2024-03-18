@@ -8,7 +8,7 @@ const SpotList = ({spots}) => {
         <div className="spots-container">
         {spots.map((spot)=> (
          <div key ={spot.id} className="spot-card" >
-            <img className='spot-image' src="https://picsum.photos/200" alt={spot.name} />
+            <img className='spot-image' src={spot.previewImage} alt={spot.name} />
             <div className="spot-details">
                 <p>{spot.city}, {spot.state} </p>
                 <p> <i className="fas fa-star"></i>{spot.avgRating}</p>
