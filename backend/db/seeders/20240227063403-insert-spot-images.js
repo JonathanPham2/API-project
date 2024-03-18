@@ -13,7 +13,7 @@ module.exports = {
     {spotId: 1, url: "https://example.com/saigon2", preview: false},
     {spotId: 2, url: "https://example.com/hanoi1", preview: true},
     {spotId: 2, url: "https://example.com/hanoi2", preview: false},
-    {spotId: 3, url: "https://example.com/danang1", preview: true},
+    {spotId: 3, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710762109/luxury-unfurnished-villa-for-rent-in-ciputra-hanoi_20205161614_ikxsco.jpg", preview: true},
     {spotId: 3, url: "https://example.com/danang2", preview: false},
     {spotId: 4, url: "https://example.com/hue1", preview: true},
     {spotId: 4, url: "https://example.com/hue2", preview: false},
