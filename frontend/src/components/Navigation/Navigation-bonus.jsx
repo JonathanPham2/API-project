@@ -9,7 +9,7 @@ function Navigation({ isLoaded }) {
   return (
     <ul className='navigation-bar'>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/"><img src="../../dist/house.ico" alt="" className='nav-house-icon' /></NavLink>
       </li>
       {isLoaded && (
         <li>
