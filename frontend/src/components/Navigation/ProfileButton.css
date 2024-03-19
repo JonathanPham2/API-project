@@ -45,10 +45,13 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 5px;
     background-color: #f6f4f4;
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(170, 169, 169, 0.828);
+    /* height: min-content; */
+    /* align-items: center; */
+    
     
     
     
@@ -58,16 +61,97 @@
 }
 .modal-list > li {
     list-style-type: none;
-    text-align: start;
-    padding: 0px;
-    margin-left: 8px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    width: fit-content;
+    display: flex;
+    align-items: centers;
+    /* justify-content: center; */
+    /* text-align: start; */
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 9px;
+
+    
+    
 
     
 }
 .modal-list > li:hover {
     cursor: pointer;
+    /* box-shadow: 1px 1px 1px 1px rgba(115, 115, 115, 0.951); */
+    border-left: none;
+    border-bottom:none;
+    background-color: rgb(217, 212, 212);
+    /* height: max-content; */
+    
+
+}
+
+#logout {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-bottom: 13px;
+    
+}
+#logout-button{
+
+    border-radius: 30px;
+    width: 70px;
+    height: 30px;
+    border: 1px solid lightgrey;
+}
+#logout-button:hover {
+    cursor: pointer;
+    background-color:rgb(223, 219, 219);
+
+    
+
+
+}
+
+
+#manage-spots {
+    display: flex;
+    border: 1px solid lightgrey;
+    height: 50px;
+    border-left: 0;
+    border-right: 0;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+    
+    
+}
+#manage-spots:hover {
+  /* box-shadow: 1px 0.2px 0.2px 0.2px rgba(170, 169, 169, 0.828); */
+  cursor: pointer;
+  background-color:rgb(223, 219, 219);
+
+
+}
+
+
+/* Move the house icon to the left  */
+ #house {
+    position: absolute;
+    left: 10px;
+
+}
+
+#greeting {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+}
+.user-icon {
+    margin-right: 8px;
+}
+.user-email {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
 }
 

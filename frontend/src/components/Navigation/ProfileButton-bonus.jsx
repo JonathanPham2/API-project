@@ -49,11 +49,11 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
+            <li id='greeting'><i className='fas fa-user user-icon'></i>Hello, {user.firstName}</li>
+            <li id='user-email'>{user.email}</li>
+            <li id='manage-spots'><i className='fas fa-home' id='house'></i>Manage Spots</li>
+            <li id='logout'>
+              <button id='logout-button' onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (
