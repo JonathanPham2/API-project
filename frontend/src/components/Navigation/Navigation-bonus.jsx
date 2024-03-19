@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton-bonus';
 import './Navigation.css';
+import houseImage from '../../../dist/house.jpg'
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -9,7 +10,7 @@ function Navigation({ isLoaded }) {
   return (
     <ul className='navigation-bar'>
       <li>
-        <NavLink to="/"><img src="../../dist/house.jpg" alt="" className='nav-house-icon' /></NavLink>
+        <NavLink to="/"><img src={houseImage} alt="" className='nav-house-icon' /></NavLink>
       </li>
       {isLoaded && (
         <li>
