@@ -10,7 +10,11 @@ module.exports = {
   async up (queryInterface, Sequelize) {
   await SpotImage.bulkCreate([
     {spotId: 1, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710762109/luxury-unfurnished-villa-for-rent-in-ciputra-hanoi_20205161614_ikxsco.jpg", preview: true},
-    {spotId: 1, url: "https://example.com/saigon2", preview: false},
+    {spotId: 1, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710891471/20240129164410-ff0a_wm_mxtfiu.jpg", preview: false},
+    {spotId: 1, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710891471/20240129164409-5048_wm_jnu0qc.jpg", preview: false},
+    {spotId: 1, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710891470/20240129165252-ade3_wm_zqbve8.jpg", preview: false},
+    {spotId: 1, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710891470/20240129165332-87f5_wm_o2stfq.jpg", preview: false},
+    {spotId: 1, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710891838/Hoan-Kiem-Lake-6_1662341107_ojbxmm.jpg", preview: false},
     {spotId: 2, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710763162/saigon_pqw9na.jpg", preview: true},
     {spotId: 2, url: "https://example.com/hanoi2", preview: false},
     {spotId: 3, url: "https://res.cloudinary.com/dzuhij5io/image/upload/v1710763163/sapa_k68fvp.avif", preview: true},
