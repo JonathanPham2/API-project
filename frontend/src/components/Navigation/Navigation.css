@@ -47,12 +47,14 @@
   /* z-index: 1000; */
   align-items: center;
   /* width: 100%; */
+ 
 
   
 
 }
 .navigation-bar > li {
   list-style-type: none;
+
 
 }
 a {
@@ -66,4 +68,25 @@ NavLink {
   height: 30px;
   width: auto;
   border-radius: 55px;
+}
+
+.create-spot {
+  color:black;
+  margin-left:auto
+}
+
+/* this is for the color of text to be white  */
+.create-new-spot {
+  color: white;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.create-new-spot:hover {
+  box-shadow: 1px 2px 10px 1px lightgrey;
+  background-color: lightgrey;
+
+}
+.hidden-create-spot {
+  display: none;
 }

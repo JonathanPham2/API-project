@@ -16,6 +16,8 @@ const SpotDetails = () => {
     // convert id from string integer
     const spotId = parseInt(id,10)
     const dispatch = useDispatch()
+    const session =  useSelector(state => state.session)
+    
     
     
     useEffect(() => {
@@ -56,21 +58,31 @@ const SpotDetails = () => {
             </section>
             <section className="spot-details-body">
                 <h2>Hosted by {owner?.firstName} {owner?.lastName}</h2>
-                <div>
+                <div className="box-container-price">
                     <p>{spot?.description}</p>
                     <div className="price-reviews-stars">
-                        <p id="spot-price"><strong>${spot?.price}</strong> night</p>
-                        <p id="spot-rating"><i className="fa fa-star"></i>{spot?.avgRating}</p>
-                        <p id="spot-review-count">{spot?.numReviews} reviews</p>
-                        <button  onClick={() => alert("feature coming soon")}>Reserve</button>
+                        <div className="price-review-container">
+                            <p id="spot-price"><strong>${spot?.price}</strong> night</p>
+                            <p id="spot-rating"><i className="fa fa-star"></i>{spot?.avgRating}</p>
+                            <p id="spot-review-count">{spot?.numReviews} reviews</p>
+                        </div>
+                        <div className="button-container">
+                            <button  onClick={() => alert("feature coming soon")}>Reserve</button>
+                        </div>
                     </div>
                 </div>
+                <hr />
             </section>
             <section className="reviews-comments">
                 <div className="reviews-header">
                     <h2><span><i className="fa fa-star"></i>{spot?.avgRating}</span></h2>
+                    <div className="divider"></div>
                     <h2><span>{spot?.numReviews} reviews</span></h2>
                 </div>
+                <div className="post-review-button-container">
+                    <button className={!session.user? "hidden-button": "review-button" }>Post Review</button>
+                </div>
+                {/* <hr className="second-line"/> */}
                 <div className="comments-section">
                     {reviews?.map((review) => (
                         <div className="user-comment" key={review.id}>
