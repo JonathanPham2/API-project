@@ -1,21 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-h1 {
+h1{
     text-align: center;
     font-family: 'Roboto', sans-serif;
 }
-form {
+.login-form-main{
     display: flex;
     flex-direction: column;
-    /* margin: 100px; */
     width: 400px;
-    /* justify-content: center;
-    align-items: center; */
     margin: 40px;
     box-sizing: border-box;
-
-
-
 }
 .login-form {
     /* display: block; */

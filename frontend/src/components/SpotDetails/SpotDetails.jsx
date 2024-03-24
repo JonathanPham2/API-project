@@ -17,6 +17,8 @@ const SpotDetails = () => {
     const spotId = parseInt(id,10)
     const dispatch = useDispatch()
     const session =  useSelector(state => state.session)
+    const currentUser = session.user
+    
     
     
     
@@ -44,7 +46,7 @@ const SpotDetails = () => {
     const images = spot?.SpotImages
 
     return (
-        <main>
+        <main className="main-spot-details">
             <section className="spot-details-header">
                 <h1 id="spot-header">{spot?.name}</h1>
                 <h3>{spot?.city}, {spot?.state}, {spot?.country}</h3>
@@ -80,7 +82,7 @@ const SpotDetails = () => {
                     <h2><span>{spot?.numReviews} reviews</span></h2>
                 </div>
                 <div className="post-review-button-container">
-                    <button className={!session.user? "hidden-button": "review-button" }>Post Review</button>
+                    <button className={!session.user || currentUser.id === owner?.id  ? "hidden-button": "review-button" }>Post Review</button>
                 </div>
                 {/* <hr className="second-line"/> */}
                 <div className="comments-section">
@@ -91,7 +93,6 @@ const SpotDetails = () => {
                                 {(()=> {
                                     // convert date into human readable
                                     const reviewDate = new Date(review.createdAt)
-                                    console.log(reviewDate)
                                     const options = { year: "numeric", month: "long" };
                                     return new Intl.DateTimeFormat("en-US", options).format(reviewDate)
                                 })()}

@@ -3,6 +3,8 @@ import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -11,12 +13,14 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const buttonDisable = credential.length >= 4 && password.length >=6;
+  const navigate = useNavigate()
   
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
+      .then(navigate("/"))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
@@ -28,7 +32,7 @@ function LoginFormModal() {
   return (
     <>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form className='login-form-main' onSubmit={handleSubmit}>
         <label className='login-form'>
           Username or Email
           <input

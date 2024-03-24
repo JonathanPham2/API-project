@@ -6,6 +6,8 @@ const LOAD_SPOTS = "spots/loadAllSpots"
 
 const LOAD_SPOT_BY_ID = "spots/:id"
 
+const ADD_SPOT = "spots/addSpot"
+
 // Action Creators
 const loadSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -15,6 +17,11 @@ const loadSpots = (spots) => ({
 const loadSpotById = (id, spot) => ({
     type: LOAD_SPOT_BY_ID,
     payload:{id, spot}
+})
+
+const addSpot = (spot) => ({
+    type: ADD_SPOT,
+    spot
 })
 
 // Thunk Action Creators
@@ -32,6 +39,36 @@ export const spotByIdFetcher = (payload) => async(dispatch) => {
     const data = await response.json()
     dispatch(loadSpotById(data.id, data))
     return response
+}
+// add new spot 
+export const addNewSpot = (payload) => async (dispatch)=> {
+    const response = await csrfFetch('/api/spots', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload.modifiedFormSpot)
+        
+    })
+    const data =  await response.json()
+    console.log("data from server",data)
+        await dispatch(addSpot(data))
+        for(const image of payload.spotImages) {
+            await csrfFetch(`/api/spots/${data.id}/images`, {
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    url:image.url,
+                    preview:image.preview
+                
+                })
+                
+            })
+        }
+        return data
+
 }
 
 //Spot Selector:
@@ -55,6 +92,9 @@ const spotsReducer = (state = initialState, action) => {
             const {id, spot} =  action.payload
 
             return {...state,[id]: spot }
+        }
+        case ADD_SPOT: {
+            return {...state, lastAddedSpot: action.spot.id}
         }
         default:
             return state

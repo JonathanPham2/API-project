@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-main {
+.main-spot-details {
     font-family: 'Roboto', sans-serif;
     max-width: 1120px;
-   margin: auto;
+     margin: auto;
     box-sizing: border-box;
     padding: 0;
 }
@@ -197,6 +197,7 @@ hr {
     box-shadow: 1px 1px 10px 1px lightgrey;
     border:none;
     background-color: #002244;
+
 
 
 }

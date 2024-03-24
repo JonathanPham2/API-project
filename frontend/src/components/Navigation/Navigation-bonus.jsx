@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
         <NavLink to="/"><img src={houseImage} alt="" className='nav-house-icon' /></NavLink>
       </li>
       <li className={sessionUser? "create-spot" : "hidden-create-spot"}>
-        <NavLink className="create-new-spot" to="/"> Create New Spot</NavLink>
+        <NavLink className="create-new-spot" to="/spots/new"> Create New Spot</NavLink>
       </li>
       {isLoaded && (
         <li>

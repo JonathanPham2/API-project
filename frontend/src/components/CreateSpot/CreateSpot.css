@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
+
+.form-container{
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+    /* text-align: start; */
+    display: flex;
+    justify-content: center;
+    width: 1120px;
+    flex-direction: column;
+    align-items: center;
+
+
+}
+.form-header {
+    margin: auto;
+    max-width: 40%;
+    text-align: start;
+}
+.form-header > h1:first-child {
+    font-size: 30px;
+    font-weight: 100;
+    text-align: start;
+}
+.form-header > h1:nth-child(2) {
+    font-size: 25px;
+    /* width: fit-content; */
+    text-align: start;
+    /* text-align: center; */
+    font-weight: 100;
+}
+.spot-create-form {
+    width: 40%;
+    /* margin: auto; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    /* flex */
+}
+.spot-create-form input {
+    height: 30px;
+}
+.form-details-location{
+    width: 100%;
+}
+/* .form-detail-location > input {
+    width: 200px
+} */
+.city-state {
+    display: inline-flex;
+    gap: 5px;
+    width: 100%;
+}
+.commas {
+    margin-top: 30px;
+}
+.city-state .city {
+    flex-grow: 8;
+}
+
+.city-state .state {
+    flex-grow: 1;
+}
+
+.latitude-and-long {
+    display: inline-flex;
+    gap: 5px;
+    width: 100%;
+}
+.latitude-and-long .latitude {
+    flex-grow: 5;
+}
+.latitude-and-long .longitude {
+    flex-grow: 5;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+}
+
+.description-label {
+    font-size: 25px;
+}
+.description-hint {
+    font-size: 14px;
+}
+#description-box {
+    height: 170px;
+
+}
+.spot-title-label {
+    font-size: 25px
+}
+
+.spot-images-form {
+    width: 100%;
+}
+.spot-images-form > input {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.button-spot-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.button-spot-container > button {
+    width: 30%;
+    box-shadow: 2px 2px 10px 2px lightgrey;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+.button-spot-container > button:hover {
+    background-color: rgb(45, 45, 45);
+    cursor: pointer;
+    color: azure;
+}
+
+
+
