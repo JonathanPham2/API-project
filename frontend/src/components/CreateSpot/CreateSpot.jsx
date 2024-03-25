@@ -32,6 +32,7 @@ const CreateSpot = ({spot, isUpdateSpot}) => {
         }
 
     })
+    console.log(formData)
     const {imageLink} = formData
     // function that change the input value state when ever the user type in
     const handleChange = (e) => {

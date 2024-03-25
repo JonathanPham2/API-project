@@ -64,7 +64,6 @@ export const addNewSpot = (payload) => async (dispatch)=> {
         
     })
     const data =  await response.json()
-    console.log("data from server",data)
         await dispatch(addSpot(data))
         for(const image of payload.spotImages) {
             await csrfFetch(`/api/spots/${data.id}/images`, {
@@ -91,6 +90,23 @@ export const updateSpot = (payload, id) => async (dispatch) => {
         },
         body: JSON.stringify(payload.modifiedFormSpot)
     })
+
+    if(payload.spotImages.length > 0) {
+    for(const image of payload.spotImages) {
+        await csrfFetch(`/api/spots/${id}/images`, {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                url:image.url,
+                preview:image.preview
+            
+            })
+            
+        })
+    } 
+}
     const data = await response.json()
     dispatch(updateSpotAction(data))
     return response

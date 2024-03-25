@@ -57,7 +57,7 @@ const SpotDetails = () => {
    
 
 
-    const hasAlreadyReview = reviews?.some(review => review.userId === currentUser.id)
+    const hasAlreadyReview = reviews?.some(review => review.userId === currentUser?.id)
 
     return (
         <main className="main-spot-details">
