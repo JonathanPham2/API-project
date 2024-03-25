@@ -12,6 +12,7 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  // check the length of credential and password if it less than certain amount the log in button will be disabled
   const buttonDisable = credential.length >= 4 && password.length >=6;
   const navigate = useNavigate()
   

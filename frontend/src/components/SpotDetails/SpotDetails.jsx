@@ -4,6 +4,9 @@ import { spotByIdFetcher } from "../../store/spot"
 import { useEffect, useState } from "react"
 import './SpotDetails.css'
 import { reviewsBySpotIdFetcher, selectorReviewsArray } from "../../store/reviews"
+import OpenModalButton from "../OpenModalButton/OpenModalButton"
+import ReviewModal from "../ReviewModal"
+
 
 
 
@@ -82,7 +85,12 @@ const SpotDetails = () => {
                     <h2><span>{spot?.numReviews} reviews</span></h2>
                 </div>
                 <div className="post-review-button-container">
-                    <button className={!session.user || currentUser.id === owner?.id  ? "hidden-button": "review-button" }>Post Review</button>
+                    <OpenModalButton 
+                     buttonText= "Post review"
+                      className={!session.user || currentUser.id === owner?.id  ? "hidden-button": "review-button" }
+                      modalComponent={<ReviewModal />}
+                      
+                      />
                 </div>
                 {/* <hr className="second-line"/> */}
                 <div className="comments-section">
