@@ -1,0 +1,23 @@
+.create-spot-button {
+    margin-left: 270px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    color: azure;
+    background-color: #010b16;
+    font-weight: bold;
+    width: 300px;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 10px 1px lightgrey;
+    
+    transition: background-color 0.5s ease;
+}
+.create-spot-button:hover{
+    cursor: pointer;
+    box-shadow: 1px 1px 10px 1px lightgrey;
+    border:none;
+    background-color: #002244;
+}

@@ -6,6 +6,8 @@ import './SpotDetails.css'
 import { reviewsBySpotIdFetcher, selectorReviewsArray } from "../../store/reviews"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import ReviewModal from "../ReviewModal"
+import DeleteModal from "../DeleteModal"
+
 
 
 
@@ -14,6 +16,7 @@ const SpotDetails = () => {
     // state error for invalid id
     const [errors, setErrors] = useState({})
     const [reviewsErrors, setReviewsErrors] = useState({})
+    const [reviewUpdated, setReviewUpdated] = useState(false);
     // id of the spot
     const {id} = useParams()
     // convert id from string integer
@@ -22,7 +25,9 @@ const SpotDetails = () => {
     const session =  useSelector(state => state.session)
     const currentUser = session.user
     
-    
+    const onReviewDeleted = () => {
+        setReviewUpdated(!reviewUpdated)
+    }
     
     
     useEffect(() => {
@@ -42,11 +47,17 @@ const SpotDetails = () => {
         })
      
         
-    },[dispatch,spotId])
+    },[dispatch,spotId, reviewUpdated])
     const spot = useSelector(state => state.spots[spotId])
-    const reviews = useSelector(selectorReviewsArray)
+    let reviews = useSelector(selectorReviewsArray)
     const owner = spot?.Owner
     const images = spot?.SpotImages
+    reviews = reviews?.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+    
+   
+
+
+    const hasAlreadyReview = reviews?.some(review => review.userId === currentUser.id)
 
     return (
         <main className="main-spot-details">
@@ -68,8 +79,8 @@ const SpotDetails = () => {
                     <div className="price-reviews-stars">
                         <div className="price-review-container">
                             <p id="spot-price"><strong>${spot?.price}</strong> night</p>
-                            <p id="spot-rating"><i className="fa fa-star"></i>{spot?.avgRating}</p>
-                            <p id="spot-review-count">{spot?.numReviews} reviews</p>
+                            <p id="spot-rating"><i className="fa fa-star"></i>{spot?.avgRating === "Rate me"? "No Ratings Yet" :`${Number(spot?.avgRating).toFixed(1)}`}</p>
+                            <p id="spot-review-count">{spot?.numReviews} {spot?.numReviews === 1 ? "review" : "reviews"}</p>
                         </div>
                         <div className="button-container">
                             <button  onClick={() => alert("feature coming soon")}>Reserve</button>
@@ -80,23 +91,25 @@ const SpotDetails = () => {
             </section>
             <section className="reviews-comments">
                 <div className="reviews-header">
-                    <h2><span><i className="fa fa-star"></i>{spot?.avgRating}</span></h2>
+                    <h2><span><i className="fa fa-star"></i>{spot?.avgRating === "Rate me"? "No Ratings Yet" :`${Number(spot?.avgRating).toFixed(1)}`}</span></h2>
                     <div className="divider"></div>
-                    <h2><span>{spot?.numReviews} reviews</span></h2>
+                    <h2><span>{spot?.numReviews} {spot?.numReviews === 1 ? "review" :"reviews"}</span></h2>
                 </div>
                 <div className="post-review-button-container">
                     <OpenModalButton 
                      buttonText= "Post review"
-                      className={!session.user || currentUser.id === owner?.id  ? "hidden-button": "review-button" }
-                      modalComponent={<ReviewModal />}
+                      className={!session.user || currentUser.id === owner?.id || hasAlreadyReview  ? "hidden-button": "review-button" }
+                      modalComponent={<ReviewModal id={spot?.id} />}
                       
                       />
                 </div>
                 {/* <hr className="second-line"/> */}
-                <div className="comments-section">
+                <div className="comments-section">{
+                   reviews && reviews.length === 0 && <span>Be the first to post a review</span>
+                }
                     {reviews?.map((review) => (
                         <div className="user-comment" key={review.id}>
-                            <h3>{review?.User.firstName}</h3>
+                            <h3>{review?.User?.firstName}</h3>
                             <span style={{fontWeight:"100"}}>
                                 {(()=> {
                                     // convert date into human readable
@@ -106,6 +119,13 @@ const SpotDetails = () => {
                                 })()}
                             </span>
                             <p>{review.review}</p>
+                            {review.userId === currentUser?.id && (
+                               <OpenModalButton 
+                               buttonText= "Delete"
+                               modalComponent={<DeleteModal isDeleteReview = {true} reviewId={review.id} onReviewDeleted={onReviewDeleted} />}
+                               
+                               />
+                            )}
                             
                             
                             

@@ -1,0 +1,13 @@
+.confirm-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.delete-button-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+

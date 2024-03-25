@@ -6,6 +6,7 @@
      margin: auto;
     box-sizing: border-box;
     padding: 0;
+    padding-bottom: 100px;
 }
 .spot-details-header > h1 {
     text-align: left;
@@ -200,4 +201,23 @@ hr {
 
 
 
+}
+.user-comment button{
+    border: none;
+    border-radius: 8px;
+    color: azure;
+    background-color: #000000;
+    font-weight: bold;
+    width: 300px;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 10px 1px lightgrey;
+    
+    transition: background-color 0.5s ease;
+
+}
+.user-comment > button:hover{
+    cursor: pointer;
+    box-shadow: 1px 1px 10px 1px lightgrey;
+    border:none;
+    background-color: #002244;
 }

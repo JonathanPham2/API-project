@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import './CreateSpot.css'
-import { addNewSpot } from "../../store/spot"
+import { addNewSpot, updateSpot } from "../../store/spot"
 import { useNavigate } from "react-router-dom"
 
-const CreateSpot = () => {
+
+const CreateSpot = ({spot, isUpdateSpot}) => {
    const id = useSelector(state => state.spots.lastAddedSpot)
    const navigate = useNavigate()
 
@@ -12,21 +13,22 @@ const CreateSpot = () => {
     const [errors, setErrors] = useState({})
     const [isSubmitted, setIsSubmitted]  = useState(false)
     const [formData, setFormData] = useState({
-        address: "",
-        city: "",
-        state: "",
-        country: "",
-        lat: "",
-        lng: "",
-        name: "",
-        description: "",
-        price: "",
-        imageLinkPreview: "",
+        address:spot? spot.address : "",
+        city: spot? spot.city :"",
+        state: spot? spot.state :"",
+        country: spot? spot.country :"",
+        lat: spot? spot.lat :"",
+        lng: spot? spot.lng :"",
+        name: spot? spot.name :"",
+        description: spot? spot.description :"",
+        price:spot? spot.price : "",
+        imageLinkPreview:spot? spot.SpotImages[0].url: "",
         imageLink: {
             imageLink1: "",
             imageLink2:"",
             imageLink3: "",
             imageLink4: ""
+            
         }
 
     })
@@ -80,13 +82,20 @@ const CreateSpot = () => {
                 modifiedFormSpot,
                 spotImages
             }
+           
 
             // wait for all the action complete then navigate to that new spot
             try {
-             await  dispatch(addNewSpot(payload))
+             if(isUpdateSpot) {
+                await dispatch(updateSpot(payload, spot.id))
+                .then(navigate(`/spots/${spot.id}`))
+             }
+             else {await  dispatch(addNewSpot(payload))
              setIsSubmitted(true)
+             }
         
             }
+
             catch(error) {
                 console.error("failed to create the spot", error)
             }
@@ -142,7 +151,7 @@ const CreateSpot = () => {
     return (
         <main className="form-container">
             <section className='form-header'>
-            <h1>Create a new Spot</h1>
+            <h1>{isUpdateSpot ? "Update your Spot" : "Create a new Spot"}</h1>
             <h1>Where&apos;s your place located</h1>
             <p>Guests will only get your exact address once they booked a reservation</p>
             </section>

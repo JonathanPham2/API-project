@@ -29,6 +29,14 @@ function LoginFormModal() {
         }
       });
   };
+  // handle demo login
+  const handleDemoLogin = () => {
+   const demoUsername= "Demo1"
+   const demoPassword = "password2"
+    return dispatch(sessionActions.login({credential:demoUsername, password:demoPassword}))
+   .then(closeModal)
+   .then(navigate("/"))
+  }
 
   return (
     <>
@@ -54,6 +62,7 @@ function LoginFormModal() {
         </label>
         {errors.credential && <p>{errors.credential}</p>}
         <button type="submit" disabled={!buttonDisable}>Log In</button>
+        <button type="button" onClick={handleDemoLogin}>Demo User</button>
       </form>
     </>
   );
